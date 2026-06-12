@@ -113,6 +113,8 @@ def main() -> int:
                         help="Show entropy estimate for each password")
     parser.add_argument("--json", "-j", action="store_true",
                         help="Output as JSON array (for scripting)")
+    parser.add_argument("--clip", action="store_true",
+                        help="Copy first password to clipboard")
 
     args = parser.parse_args()
 
@@ -143,6 +145,26 @@ def main() -> int:
         for i in range(args.count):
             pwd = generate_random(length=args.length, pools=pools)
             passwords.append(pwd)
+
+    if args.clip and passwords:
+        try:
+            import pyperclip
+            pyperclip.copy(passwords[0])
+            print(passwords[0], end="")
+            print("  (copied!)")
+            return 0
+        except Exception:
+            try:
+                import subprocess
+                p = subprocess.Popen(["xclip", "-selection", "clipboard"], stdin=subprocess.PIPE)
+                p.communicate(passwords[0].encode())
+                print(passwords[0], end="")
+                print("  (copied!)")
+                return 0
+            except Exception:
+                print("pwgen: --clip requires a clipboard tool (pip install pyperclip or apt install xclip)",
+                      file=sys.stderr)
+                sys.exit(1)
 
     if args.json:
         import json as j
