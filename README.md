@@ -47,6 +47,8 @@ pwgen --count 5
 | `--add-digit`, `-d` | Append a digit |
 | `--count`, `-n` | Number of passwords (default: 1) |
 | `--entropy`, `-e` | Show entropy estimate in bits |
+| `--json`, `-j` | Output as JSON array for scripting |
+| `--clip` | Copy first password to clipboard |
 
 ## Security
 
