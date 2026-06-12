@@ -87,6 +87,8 @@ def main() -> int:
     # Random password options
     parser.add_argument("--length", "-l", type=int, default=20,
                         help="Password length (default: 20)")
+    parser.add_argument("--chars", type=str, default=None,
+                        help="Custom character set (overrides all --no-* options)")
     parser.add_argument("--no-upper", action="store_true",
                         help="Exclude uppercase letters")
     parser.add_argument("--no-lower", action="store_true",
@@ -145,15 +147,18 @@ def main() -> int:
             )
             passwords.append(pwd)
     else:
-        pools = []
-        if not args.no_lower:
-            pools.append(LOWERCASE)
-        if not args.no_upper:
-            pools.append(UPPERCASE)
-        if not args.no_digits:
-            pools.append(DIGITS)
-        if not args.no_symbols:
-            pools.append(SYMBOLS)
+        if args.chars:
+            pools = [args.chars]
+        else:
+            pools = []
+            if not args.no_lower:
+                pools.append(LOWERCASE)
+            if not args.no_upper:
+                pools.append(UPPERCASE)
+            if not args.no_digits:
+                pools.append(DIGITS)
+            if not args.no_symbols:
+                pools.append(SYMBOLS)
 
         pool_size = sum(len(p) for p in pools)
         entropy = estimate_entropy(args.length, pool_size)
