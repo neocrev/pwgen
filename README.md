@@ -29,6 +29,14 @@ pwgen --length 32 --no-symbols --entropy
 
 # Generate 5 passwords at once
 pwgen --count 5
+
+# Numeric PIN code
+pwgen --pin
+# → 481230
+
+# 4-digit PIN with entropy
+pwgen --pin --pin-length 4 --entropy
+# → 9865  (13 bits)
 ```
 
 ## Options
@@ -45,6 +53,8 @@ pwgen --count 5
 | `--separator`, `-s` | Word separator (default: `-`) |
 | `--caps`, `-c` | Capitalize each word |
 | `--add-digit`, `-d` | Append a digit |
+| `--pin` | Generate numeric PIN |
+| `--pin-length` | PIN length (default: 6) |
 | `--count`, `-n` | Number of passwords (default: 1) |
 | `--entropy`, `-e` | Show entropy estimate in bits |
 | `--json`, `-j` | Output as JSON array for scripting |

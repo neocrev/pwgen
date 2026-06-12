@@ -106,6 +106,12 @@ def main() -> int:
     parser.add_argument("--add-digit", "-d", action="store_true",
                         help="Append a digit to pronounceable password")
 
+    # PIN options
+    parser.add_argument("--pin", action="store_true",
+                        help="Generate numeric PIN instead of password")
+    parser.add_argument("--pin-length", type=int, default=6,
+                        help="PIN length (default: 6)")
+
     # Output options
     parser.add_argument("--count", "-n", type=int, default=1,
                         help="Number of passwords to generate (default: 1)")
@@ -119,7 +125,12 @@ def main() -> int:
     args = parser.parse_args()
 
     passwords = []
-    if args.pronounceable:
+    if args.pin:
+        for i in range(args.count):
+            pwd = "".join(secrets.choice(DIGITS) for _ in range(args.pin_length))
+            passwords.append(pwd)
+        entropy = estimate_entropy(args.pin_length, len(DIGITS))
+    elif args.pronounceable:
         for i in range(args.count):
             pwd = generate_pronounceable(
                 words=args.words,
