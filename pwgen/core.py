@@ -20,6 +20,9 @@ CONSONANTS = "bcdfghjklmnpqrstvwxyz"
 VOWELS = "aeiou"
 
 
+VERSION = "1.0.1"
+
+
 def estimate_entropy(length: int, pool_size: int) -> float:
     """Calculate entropy in bits."""
     if pool_size <= 0 or length <= 0:
@@ -124,7 +127,9 @@ def main() -> int:
     parser.add_argument("--json", "-j", action="store_true",
                         help="Output as JSON array (for scripting)")
     parser.add_argument("--clip", action="store_true",
-                        help="Copy first password to clipboard")
+                         help="Copy first password to clipboard")
+    parser.add_argument("--version", action="version", version=f"pwgen {VERSION}",
+                         help="Show version and exit")
 
     args = parser.parse_args()
 
