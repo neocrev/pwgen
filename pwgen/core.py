@@ -133,6 +133,9 @@ def main() -> int:
             passwords.append(pwd)
         entropy = estimate_entropy(args.pin_length, len(DIGITS))
     elif args.pronounceable:
+        entropy = estimate_entropy(args.words, 2000) * 2.5  # ~2.5 syllables/word × 2000 combos/syllable
+        if args.add_digit:
+            entropy += math.log2(10)
         for i in range(args.count):
             pwd = generate_pronounceable(
                 words=args.words,
