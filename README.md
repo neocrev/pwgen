@@ -5,6 +5,7 @@
     <img alt="PyPI" src="https://img.shields.io/pypi/v/pwgen?style=flat">
     <img alt="Python" src="https://img.shields.io/pypi/pyversions/pwgen?style=flat">
     <img alt="License" src="https://img.shields.io/github/license/neocrev/pwgen?style=flat">
+    <img alt="CI" src="https://github.com/neocrev/pwgen/actions/workflows/test.yml/badge.svg">
   </p>
 </p>
 
