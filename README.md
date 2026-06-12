@@ -45,6 +45,7 @@ pwgen --pin --pin-length 4 --entropy
 | Option | Description |
 |--------|-------------|
 | `--length`, `-l` | Password length (default: 20) |
+| `--chars` | Custom character set (overrides --no-* options) |
 | `--no-upper` | Exclude uppercase letters |
 | `--no-lower` | Exclude lowercase letters |
 | `--no-digits` | Exclude digits |
