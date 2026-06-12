@@ -1,0 +1,1 @@
+"""pwgen — secure password generator."""

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pwgen"
+version = "1.0.0"
+description = "Secure password generator — random, memorable, configurable"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "neocrev" }]
+keywords = ["password", "generator", "cli", "security", "utility"]
+requires-python = ">=3.9"
+
+[project.scripts]
+pwgen = "pwgen.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["pwgen*"]
