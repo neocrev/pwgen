@@ -111,9 +111,12 @@ def main() -> int:
                         help="Number of passwords to generate (default: 1)")
     parser.add_argument("--entropy", "-e", action="store_true",
                         help="Show entropy estimate for each password")
+    parser.add_argument("--json", "-j", action="store_true",
+                        help="Output as JSON array (for scripting)")
 
     args = parser.parse_args()
 
+    passwords = []
     if args.pronounceable:
         for i in range(args.count):
             pwd = generate_pronounceable(
@@ -122,10 +125,7 @@ def main() -> int:
                 capitalize=args.caps,
                 add_digit=args.add_digit,
             )
-            if args.count > 1:
-                print(f"{i+1}. {pwd}")
-            else:
-                print(pwd)
+            passwords.append(pwd)
     else:
         pools = []
         if not args.no_lower:
@@ -142,10 +142,17 @@ def main() -> int:
 
         for i in range(args.count):
             pwd = generate_random(length=args.length, pools=pools)
+            passwords.append(pwd)
+
+    if args.json:
+        import json as j
+        print(j.dumps(passwords))
+    else:
+        for i, pwd in enumerate(passwords, 1):
             if args.count > 1:
-                label = f"{i+1}. {pwd}"
+                label = f"{i}. {pwd}"
                 if args.entropy:
-                    label += f"  ({entropy:.0f} bits)"
+                    label += f"  ({entropy:.0f} bits)" if args.entropy else ""
                 print(label)
             else:
                 if args.entropy:
